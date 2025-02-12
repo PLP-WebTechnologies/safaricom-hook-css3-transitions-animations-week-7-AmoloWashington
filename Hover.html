@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive and Dynamic Web Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Part 1: Transitions and Animations */
+        .hover-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .hover-btn:hover {
+            transform: scale(1.1);
+            background-color: #0056b3;
+        }
+
+        .animated-box {
+            width: 100px;
+            height: 100px;
+            background-color: #FF5733;
+            margin: 20px auto;
+            border-radius: 10px;
+            animation: slide 3s infinite;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(200px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Hidden Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .close-btn {
+            background: #FF5733;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive and Dynamic Web Page</h1>
+
+    <!-- Part 1: CSS3 Transitions and Animations -->
+    <button class="hover-btn">Hover over me</button>
+
+    <div class="animated-box"></div>
+
+    <div class="spinner"></div>
+
+    <!-- Part 2: Modal Interaction -->
+    <button id="modalBtn" class="hover-btn">Open Modal</button>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
+        <h2>Modal Window</h2>
+        <p>This is a dynamically triggered modal!</p>
+        <button id="closeModal" class="close-btn">Close</button>
+    </div>
+
+    <!-- Part 3: Functions Demonstration -->
+    <h2>Calculate Rectangle Area</h2>
+    <form id="areaForm">
+        <label for="length">Length:</label>
+        <input type="number" id="length" required>
+        <label for="width">Width:</label>
+        <input type="number" id="width" required>
+        <button type="submit">Calculate</button>
+    </form>
+    <p id="areaResult"></p>
+
+    <script>
+        // Part 2: JavaScript Functions
+
+        // Function with parameters and return values
+        function calculateArea(length, width) {
+            return length * width;
+        }
+
+        // Event Listener for Form Submission
+        document.getElementById('areaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const area = calculateArea(length, width);
+            document.getElementById('areaResult').innerText = `Area: ${area}`;
+        });
+
+        // Demonstrating Scope
+        let globalVar = "I am global";
+
+        function showScope() {
+            let localVar = "I am local";
+            console.log(globalVar); // Accessible
+            console.log(localVar); // Accessible
+        }
+
+        Uncomment to test
+        showScope();
+        console.log(localVar); // Error: not accessible
+
+        // Part 3: Modal Interaction
+        const modal = document.getElementById('modal');
+        const overlay = document.getElementById('overlay');
+        const modalBtn = document.getElementById('modalBtn');
+        const closeModal = document.getElementById('closeModal');
+
+        modalBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+            overlay.classList.add('show');
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
